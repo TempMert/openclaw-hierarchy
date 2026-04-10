@@ -3,178 +3,479 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenClaw Agent Hiyerarşisi – Ultimate</title>
+  <title>OpenClaw Organizasyon Şeması</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: {
-            zinc: { 950: '#0a0a0a' },
-            accent: { gold: '#FFD700', silver: '#C0C0C0', blue: '#3b82f6', green: '#22c55e', purple: '#a855f7', red: '#ef4444', orange: '#f97316', teal: '#14b8a6', yellow: '#eab308', gray: '#6b7280' }
-          }
         }
       }
     }
   </script>
   <style>
-    body { background: radial-gradient(ellipse at bottom, #0b0d17, #000); color:#fff; min-height:100vh; overflow-x:hidden; }
-    .stars { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none;
-      background-image: radial-gradient(circle at 10% 20%,rgba(255,255,255,.8) 0%,transparent 2%),
-                        radial-gradient(circle at 80% 50%,rgba(255,255,255,.6) 0%,transparent 1.5%),
-                        radial-gradient(circle at 40% 70%,rgba(255,255,255,.7) 0%,transparent 2%),
-                        radial-gradient(circle at 90% 10%,rgba(255,255,255,.5) 0%,transparent 1%),
-                        radial-gradient(circle at 30% 30%,rgba(255,255,255,.6) 0%,transparent 1.2%);
-      background-size:400px 400px; filter:blur(1px); z-index:-1; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0a0a0f 60%, #000 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+    .stars {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.7), transparent),
+        radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,.5), transparent),
+        radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,.6), transparent),
+        radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,.4), transparent),
+        radial-gradient(1.5px 1.5px at 20% 80%, rgba(255,255,255,.8), transparent),
+        radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,.5), transparent),
+        radial-gradient(1px 1px at 70% 90%, rgba(255,255,255,.6), transparent),
+        radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,.4), transparent),
+        radial-gradient(1.5px 1.5px at 50% 60%, rgba(255,255,255,.7), transparent),
+        radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,.5), transparent);
+      background-size: 500px 500px;
+      animation: twinkle 8s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle { 0%{opacity:.6} 50%{opacity:1} 100%{opacity:.7} }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,.3); }
+      50% { box-shadow: 0 0 40px rgba(255,215,0,.6); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .fade-up { animation: fadeUp .8s cubic-bezier(.22,.61,.36,1) both; }
+    .fade-up-d1 { animation-delay: .1s; }
+    .fade-up-d2 { animation-delay: .2s; }
+    .fade-up-d3 { animation-delay: .3s; }
+    .fade-up-d4 { animation-delay: .4s; }
+    .fade-up-d5 { animation-delay: .5s; }
+    .fade-up-d6 { animation-delay: .6s; }
+    .fade-up-d7 { animation-delay: .7s; }
+    .fade-up-d8 { animation-delay: .8s; }
+
+    .glass {
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      transition: all .35s cubic-bezier(.22,.61,.36,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .glass::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+    }
+    .glass:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.15);
+      transform: translateY(-4px);
+    }
+
+    .glass-gold {
+      background: rgba(255,215,0,.06);
+      border-color: rgba(255,215,0,.25);
+      box-shadow: 0 0 30px rgba(255,215,0,.1), inset 0 0 30px rgba(255,215,0,.03);
+    }
+    .glass-gold:hover {
+      box-shadow: 0 0 50px rgba(255,215,0,.2), inset 0 0 30px rgba(255,215,0,.05);
+      border-color: rgba(255,215,0,.4);
+    }
+
+    .glass-silver {
+      background: rgba(192,192,192,.06);
+      border-color: rgba(192,192,192,.2);
+      box-shadow: 0 0 25px rgba(192,192,192,.08);
+    }
+    .glass-silver:hover {
+      box-shadow: 0 0 45px rgba(192,192,192,.15);
+      border-color: rgba(192,192,192,.35);
+    }
+
+    .shimmer-text {
+      background: linear-gradient(90deg, #FFD700 0%, #fff 25%, #FFD700 50%, #fff 75%, #FFD700 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .connector-line {
+      position: relative;
+    }
+    .connector-line::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -24px;
+      width: 2px;
+      height: 24px;
+      background: linear-gradient(to bottom, rgba(255,215,0,.4), rgba(255,255,255,.1));
+      transform: translateX(-50%);
+    }
+
+    .dept-header {
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+
+    .agent-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.8);
+      transition: all .25s ease;
+      white-space: nowrap;
+    }
+    .agent-chip:hover {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.15);
+      transform: translateY(-1px);
+    }
+    .agent-chip .emoji { font-size: 14px; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .badge-gold { background: rgba(255,215,0,.15); color: #FFD700; }
+    .badge-silver { background: rgba(192,192,192,.15); color: #C0C0C0; }
+    .badge-blue { background: rgba(59,130,246,.15); color: #60a5fa; }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 20px;
+    }
+
+    .tree-connector {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      height: 40px;
+    }
+    .tree-connector::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255,215,0,.3), rgba(255,255,255,.08));
+      transform: translateX(-50%);
+    }
+
+    .horizontal-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .horizontal-connector .line {
+      height: 2px;
+      width: 60px;
+      background: linear-gradient(90deg, rgba(255,215,0,.3), rgba(192,192,192,.3));
+    }
+    .horizontal-connector .line:first-child {
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,.3));
+    }
+    .horizontal-connector .line:last-child {
+      background: linear-gradient(90deg, rgba(192,192,192,.3), transparent);
+    }
+
+    @media (max-width: 768px) {
+      .agent-chip { font-size: 11px; padding: 5px 10px; }
+      .dept-grid { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
   <div class="stars"></div>
-  <div id="root"></div>
 
-  <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.min.js"></script>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 py-12 md:py-16">
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
-    const { useMotionValue, motion } = window.Motion;
+    <!-- HEADER -->
+    <div class="text-center mb-12 fade-up">
+      <div class="inline-flex items-center gap-2 mb-4">
+        <span class="text-3xl">🐾</span>
+        <h1 class="text-3xl md:text-5xl font-black shimmer-text">OpenClaw</h1>
+      </div>
+      <p class="text-sm md:text-base text-white/40 font-medium tracking-wide">Agent Organizasyon Şeması — 2026</p>
+    </div>
 
-    const LiquidGlassCard = ({ emoji, name, role, color, delay = 0, size = 'normal', id }) => {
-      const colorStyles = {
-        gold: { border:'6px solid #FFD700', boxShadow:'0 0 60px rgba(255,215,0,.6), inset 0 0 30px rgba(255,215,0,.25)', textColor:'#FFD700' },
-        silver: { border:'6px solid #C0C0C0', boxShadow:'0 0 60px rgba(192,192,192,.6), inset 0 0 30px rgba(192,192,192,.25)', textColor:'#C0C0C0' },
-        blue: { border:'6px solid #3b82f6', boxShadow:'0 0 60px rgba(59,130,246,.6), inset 0 0 30px rgba(59,130,246,.25)', textColor:'#3b82f6' },
-        green: { border:'6px solid #22c55e', boxShadow:'0 0 60px rgba(34,197,94,.6), inset 0 0 30px rgba(34,197,94,.25)', textColor:'#22c55e' },
-        purple: { border:'6px solid #a855f7', boxShadow:'0 0 60px rgba(168,85,247,.6), inset 0 0 30px rgba(168,85,247,.25)', textColor:'#a855f7' },
-        red: { border:'6px solid #ef4444', boxShadow:'0 0 60px rgba(239,68,68,.6), inset 0 0 30px rgba(239,68,68,.25)', textColor:'#ef4444' },
-        orange: { border:'6px solid #f97316', boxShadow:'0 0 60px rgba(249,115,22,.6), inset 0 0 30px rgba(249,115,22,.3)', textColor:'#f97316' },
-        teal: { border:'6px solid #14b8a6', boxShadow:'0 0 60px rgba(20,184,166,.6), inset 0 0 30px rgba(20,184,166,.3)', textColor:'#14b8a6' },
-        yellow: { border:'6px solid #eab308', boxShadow:'0 0 60px rgba(234,179,8,.6), inset 0 0 30px rgba(234,179,8,.4)', textColor:'#eab308' },
-        gray: { border:'6px solid #6b7280', boxShadow:'0 0 60px rgba(107,114,128,.6), inset 0 0 30px rgba(107,114,128,.3)', textColor:'#9ca3af' }
-      };
-      const style = colorStyles[color] || colorStyles.blue;
-      const [hover, setHover] = useState(false);
-      const x = useMotionValue(0); const y = useMotionValue(0);
-      const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
-        x.set((e.clientX - cx)*0.2); y.set((e.clientY - cy)*0.2);
-      };
-      const handleMouseLeave = () => { setHover(false); x.set(0); y.set(0); };
-      const cardClass = size === 'large' ? 'max-w-[360px] min-h-[320px] text-2xl' : 'max-w-[280px] min-h-[260px] text-lg';
-      return (
-        <motion.div
-          id={id}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay, duration: 0.6, type: 'spring', stiffness: 100, damping: 20 }}
-          onMouseEnter={()=>setHover(true)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
-          style={{
-            x, y,
-            borderRadius:'28px',
-            background:'rgba(20,30,50,.75)',
-            border:style.border,
-            boxShadow:style.boxShadow,
-            transition:'box-shadow .3s ease, transform .3s cubic-bezier(.175,.885,.32,1.275)'
-          }}
-          className={`${cardClass} p-8 flex flex-col items-center justify-center text-center relative overflow-hidden backdrop-blur-xl`}
-        >
-          <motion.div className="absolute top-0 left-0 w-[300%] h-[300%] pointer-events-none" style={{ background:'linear-gradient(rgba(255,255,255,.1) 0%,transparent 60%)', transform:'rotate(45deg)', opacity:hover?1:0 }} />
-          <div className="emoji text-5xl mb-4 drop-shadow-[0_0_10px_currentColor]" style={{color:style.textColor}}>{emoji}</div>
-          <div className="name text-2xl font-extrabold mb-2 tracking-wider" style={{letterSpacing:'0.5px'}}>{name}</div>
-          <div className="role text-gray-400 text-base leading-tight">{role}</div>
-        </motion.div>
-      );
-    };
+    <!-- TIER 1: CEO -->
+    <div class="section-title fade-up fade-up-d1">Liderlik</div>
+    <div class="flex justify-center mb-4 fade-up fade-up-d2">
+      <div class="glass glass-gold rounded-3xl p-8 md:p-10 text-center max-w-sm mx-auto" style="animation: pulse-glow 3s ease-in-out infinite, fadeUp .8s cubic-bezier(.22,.61,.36,1) .2s both;">
+        <div class="text-5xl mb-3" style="animation: float 3s ease-in-out infinite;">👑</div>
+        <div class="text-2xl md:text-3xl font-black text-[#FFD700] mb-1">Mertko</div>
+        <div class="text-sm text-white/50 font-medium">Owner & CEO</div>
+        <div class="mt-3"><span class="badge badge-gold">Vision & Strategy</span></div>
+      </div>
+    </div>
 
-    const TreeConnector = ({ from, to }) => {
-      const [path, setPath] = useState('');
-      useEffect(() => {
-        let mounted = true;
-        const update = () => {
-          if (!mounted) return;
-          const fromEl = document.getElementById(from);
-          const toEl = document.getElementById(to);
-          if (fromEl && toEl) {
-            const f = fromEl.getBoundingClientRect();
-            const t = toEl.getBoundingClientRect();
-            const x1 = f.left + f.width/2, y1 = f.bottom - 10;
-            const x2 = t.left + t.width/2, y2 = t.top + 10;
-            const cp1x = x1, cp1y = y1 + 40;
-            const cp2x = x2, cp2y = t.top - 40;
-            setPath(`M ${x1} ${y1} C ${cp1x} ${cp1y}, ${cp2x}, ${cp2y}, ${x2} ${y2}`);
-            return true;
-          }
-          return false;
-        };
-        let attempts = 0;
-        const maxAttempts = 50;
-        const interval = setInterval(() => {
-          if (update() || attempts++ > maxAttempts) clearInterval(interval);
-        }, 100);
-        return () => { mounted = false; clearInterval(interval); };
-      }, [from, to]);
-      if (!path) return null;
-      return (
-        <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          <path d={path} stroke="rgba(255,255,255,0.2)" strokeWidth="2" fill="none" />
-        </svg>
-      );
-    };
+    <!-- Connector -->
+    <div class="tree-connector fade-up fade-up-d3"></div>
 
-    const App = () => {
-      const mertko = {
-        emoji: '👑',
-        name: 'Mertko',
-        role: 'Sahip / Kullanıcı',
-        color: 'gold',
-        size: 'large'
-      };
+    <!-- TIER 2: COO + CTO -->
+    <div class="flex flex-col md:flex-row justify-center items-stretch gap-6 md:gap-8 mb-4 fade-up fade-up-d3">
+      <!-- LEA -->
+      <div class="glass glass-silver rounded-2xl p-6 md:p-8 text-center flex-1 max-w-sm mx-auto">
+        <div class="text-4xl mb-2">🎤</div>
+        <div class="text-xl md:text-2xl font-bold text-[#C0C0C0] mb-1">LEA</div>
+        <div class="text-sm text-white/50 font-medium">COO — Baş Koordinatör</div>
+        <div class="mt-3"><span class="badge badge-silver">Research & Delegation</span></div>
+      </div>
+      <!-- QWEN -->
+      <div class="glass rounded-2xl p-6 md:p-8 text-center flex-1 max-w-sm mx-auto" style="border-color: rgba(59,130,246,.25); background: rgba(59,130,246,.06); box-shadow: 0 0 25px rgba(59,130,246,.08);">
+        <div class="text-4xl mb-2">⚙️</div>
+        <div class="text-xl md:text-2xl font-bold text-[#60a5fa] mb-1">QWEN</div>
+        <div class="text-sm text-white/50 font-medium">CTO — Baş Mühendis</div>
+        <div class="mt-3"><span class="badge badge-blue">Architecture & Code</span></div>
+      </div>
+    </div>
 
-      const agents = [
-        { emoji: '👤', name: 'Lea', role: 'Ana Assistant', color: 'silver' },
-        { emoji: '🎤', name: 'Voice Assistant', role: 'Sesli Asistan', color: 'green' },
-        { emoji: '✨', name: 'Prompt Engineer', role: 'Prompt Üretici', color: 'purple' },
-        { emoji: '🎨', name: 'Frontend Designer', role: 'UI/UX Tasarımcı', color: 'blue' },
-        { emoji: '🏗️', name: 'Backend Architect', role: 'Backend Mimar', color: 'gray' },
-        { emoji: '🛡️', name: 'Security Agent', role: 'Güvenlik Sorumlusu', color: 'red' },
-        { emoji: '🚀', name: 'DevOps', role: 'Deployment & Infra', color: 'orange' },
-        { emoji: '📚', name: 'Technical Writer', role: 'Dokümantasyon', color: 'teal' },
-        { emoji: '🔍', name: 'QA Engineer', role: 'Kalite Güvence', color: 'yellow' }
-      ];
+    <!-- Connector -->
+    <div class="tree-connector fade-up fade-up-d4"></div>
 
-      return (
-        <div className="relative min-h-screen">
-          <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-            {agents.map((_, i) => (
-              <TreeConnector key={i} from="mertko-card" to={`agent-${i}`} />
-            ))}
-          </svg>
+    <!-- TIER 3: DEPARTMENTS -->
+    <div class="section-title fade-up fade-up-d4">Departmanlar & Agentlar</div>
 
-          <div className="container mx-auto px-4 py-16 relative z-10">
-            <div className="flex justify-center mb-20">
-              <LiquidGlassCard id="mertko-card" {...mertko} delay={0} size="large" />
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {agents.map((agent, idx) => (
-                <LiquidGlassCard key={idx} id={`agent-${idx}`} {...agent} delay={0.2 + idx*0.08} />
-              ))}
+      <!-- 1. Backend & Security -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d5">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🛡️</span>
+            <div>
+              <div class="font-bold text-white text-sm">Backend & Security</div>
+              <div class="text-[10px] text-white/40 font-medium">5 Agent</div>
             </div>
           </div>
         </div>
-      );
-    };
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">🏗️</span>Backend Architect</span>
+          <span class="agent-chip"><span class="emoji">🔒</span>Security Engineer</span>
+          <span class="agent-chip"><span class="emoji">⚡</span>SRE</span>
+          <span class="agent-chip"><span class="emoji">🛡️</span>Security Agent</span>
+          <span class="agent-chip"><span class="emoji">🔍</span>Threat Detection</span>
+        </div>
+      </div>
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
+      <!-- 2. Frontend & Design -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d5">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🎨</span>
+            <div>
+              <div class="font-bold text-white text-sm">Frontend & Design</div>
+              <div class="text-[10px] text-white/40 font-medium">4 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">⚛️</span>Frontend Developer</span>
+          <span class="agent-chip"><span class="emoji">🎨</span>Frontend Designer</span>
+          <span class="agent-chip"><span class="emoji">🧪</span>UX Researcher</span>
+          <span class="agent-chip"><span class="emoji">🥽</span>visionOS Engineer</span>
+        </div>
+      </div>
+
+      <!-- 3. QA & Testing -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d5">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">✅</span>
+            <div>
+              <div class="font-bold text-white text-sm">QA & Testing</div>
+              <div class="text-[10px] text-white/40 font-medium">3 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">🔍</span>QA Engineer</span>
+          <span class="agent-chip"><span class="emoji">📊</span>Test Results Analyzer</span>
+          <span class="agent-chip"><span class="emoji">⏱️</span>Performance Benchmarker</span>
+        </div>
+      </div>
+
+      <!-- 4. DevOps & Infrastructure -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d6">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🚀</span>
+            <div>
+              <div class="font-bold text-white text-sm">DevOps & Infrastructure</div>
+              <div class="text-[10px] text-white/40 font-medium">4 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">🚀</span>DevOps Automator</span>
+          <span class="agent-chip"><span class="emoji">🔧</span>Infrastructure Maintainer</span>
+          <span class="agent-chip"><span class="emoji">🔄</span>Workflow Architect</span>
+          <span class="agent-chip"><span class="emoji">🤖</span>Autonomous Optimization</span>
+        </div>
+      </div>
+
+      <!-- 5. Content -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d6">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📝</span>
+            <div>
+              <div class="font-bold text-white text-sm">Content</div>
+              <div class="text-[10px] text-white/40 font-medium">4 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">✍️</span>Content Creator</span>
+          <span class="agent-chip"><span class="emoji">📚</span>Technical Writer</span>
+          <span class="agent-chip"><span class="emoji">🖼️</span>Visual Storyteller</span>
+          <span class="agent-chip"><span class="emoji">📖</span>Narrative Designer</span>
+        </div>
+      </div>
+
+      <!-- 6. Creative -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d6">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🎬</span>
+            <div>
+              <div class="font-bold text-white text-sm">Creative</div>
+              <div class="text-[10px] text-white/40 font-medium">3 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">🎬</span>Video Editor</span>
+          <span class="agent-chip"><span class="emoji">✂️</span>Smart Cut</span>
+          <span class="agent-chip"><span class="emoji">🎮</span>Game Audio Engineer</span>
+        </div>
+      </div>
+
+      <!-- 7. Products -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d7">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📱</span>
+            <div>
+              <div class="font-bold text-white text-sm">Products</div>
+              <div class="text-[10px] text-white/40 font-medium">2 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">📋</span>Product Manager</span>
+          <span class="agent-chip"><span class="emoji">📈</span>App Store Optimizer</span>
+        </div>
+      </div>
+
+      <!-- 8. Growth -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d7">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📈</span>
+            <div>
+              <div class="font-bold text-white text-sm">Growth</div>
+              <div class="text-[10px] text-white/40 font-medium">3 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">🔎</span>SEO Specialist</span>
+          <span class="agent-chip"><span class="emoji">📣</span>Social Media Strategist</span>
+          <span class="agent-chip"><span class="emoji">💰</span>PPC Campaign Strategist</span>
+        </div>
+      </div>
+
+      <!-- 9. Community -->
+      <div class="glass rounded-2xl p-5 fade-up fade-up-d7">
+        <div class="dept-header !mb-4 !rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🌐</span>
+            <div>
+              <div class="font-bold text-white text-sm">Community</div>
+              <div class="text-[10px] text-white/40 font-medium">4 Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="agent-chip"><span class="emoji">🤝</span>Reddit Community Builder</span>
+          <span class="agent-chip"><span class="emoji">🐦</span>Twitter Engager</span>
+          <span class="agent-chip"><span class="emoji">💼</span>LinkedIn Content Creator</span>
+          <span class="agent-chip"><span class="emoji">👨‍💻</span>Developer Advocate</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER STATS -->
+    <div class="mt-12 text-center fade-up fade-up-d8">
+      <div class="inline-flex items-center gap-6 md:gap-10 glass rounded-full px-8 py-4">
+        <div class="text-center">
+          <div class="text-2xl font-black text-[#FFD700]">3</div>
+          <div class="text-[10px] text-white/40 font-medium uppercase tracking-wide">Lider</div>
+        </div>
+        <div class="w-px h-8 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-2xl font-black text-[#C0C0C0]">9</div>
+          <div class="text-[10px] text-white/40 font-medium uppercase tracking-wide">Departman</div>
+        </div>
+        <div class="w-px h-8 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-2xl font-black text-[#60a5fa]">34+</div>
+          <div class="text-[10px] text-white/40 font-medium uppercase tracking-wide">Aktif Agent</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="mt-8 text-center">
+      <p class="text-xs text-white/20">OpenClaw Agent Network · Built by Mertko · 2026</p>
+    </div>
+
+  </div>
 </body>
 </html>
-EOF
